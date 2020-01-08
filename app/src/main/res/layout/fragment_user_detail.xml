@@ -54,30 +54,36 @@
             tools:text="23423423423"
             android:text="@{bindingModel.phone}" />
 
-        <TextView
-            style="@style/TextStyle3"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/indentation_8"
-            android:text="@string/txt_email" />
+            android:textColorHint="@color/colorGreyishBrown"
+            android:hint="@string/txt_email">
 
-        <EditText
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{bindingModel.email}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/txt_email"
-            android:text="@{bindingModel.email}" />
+            android:textColorHint="@color/colorGreyishBrown"
+            android:hint="@string/txt_address">
 
-        <TextView
-            style="@style/TextStyle3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/txt_address" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/txt_address"
+                android:text="@{bindingModel.location}" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/txt_address"
-            android:text="@{bindingModel.location}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
 
     </LinearLayout>
 </layout>
