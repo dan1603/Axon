@@ -9,4 +9,6 @@ data class Location(
     var state: String,
     @SerializedName("country")
     var country: String
-)
+) {
+    fun getFullAddress(): String = "$country, $city, $state"
+}

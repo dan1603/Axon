@@ -3,40 +3,82 @@
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data class="SearchDataBinding">
+    <data class="UserDetailBinding">
 
         <import type="android.view.View"/>
 
         <variable
                 name="bindingModel"
                 type="com.example.axon.presentation.fragments.user_detail.UserDetailModelBinding" />
-
     </data>
 
-    <RelativeLayout
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/indentation_8"
-            tools:context="com.kalashnyk.denys.oollatest.presentation.fragments.search.SearchFragment">
+            android:orientation="vertical"
+            android:padding="@dimen/indentation_8">
+        
+        <ImageView
+            android:layout_width="@dimen/view_params_128"
+            android:layout_height="@dimen/view_params_128"
+            android:layout_gravity="center"
+            app:image="@{bindingModel.pictureUrl}"/>
+
+        <TextView
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            tools:text="User Name"
+            android:text="@{bindingModel.userName}" />
+
+        <TextView
+            style="@style/TextStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            tools:text="25 years old"
+            android:text="@{bindingModel.age}" />
+
+        <TextView
+            style="@style/TextStyle3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/indentation_32"
+            android:text="@string/txt_cell_phone" />
+
+        <TextView
+            style="@style/TextStyle4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="23423423423"
+            android:text="@{bindingModel.phone}" />
+
+        <TextView
+            style="@style/TextStyle3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/indentation_8"
+            android:text="@string/txt_email" />
 
         <EditText
-                android:id="@+id/etUserName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:hint="@string/hint_enter_user_name" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/txt_email"
+            android:text="@{bindingModel.email}" />
 
-        <Button
-                android:id="@+id/btnSearch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:theme="@style/SearchButton"
-                android:text="@string/btn_search_for_repositories"
-                android:textColor="@color/colorWhite"
-                android:enabled="false"
-                style="@style/Widget.AppCompat.Button.Colored"/>
+        <TextView
+            style="@style/TextStyle3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_address" />
 
-    </RelativeLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/txt_address"
+            android:text="@{bindingModel.location}" />
+
+    </LinearLayout>
 </layout>
 

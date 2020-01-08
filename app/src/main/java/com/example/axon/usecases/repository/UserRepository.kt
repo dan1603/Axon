@@ -1,5 +1,6 @@
 package com.example.axon.usecases.repository
 
+import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import com.example.axon.data.card_models.UserDisplayModel
 import com.example.axon.usecases.repository.data_source.UserDataSource
@@ -7,6 +8,7 @@ import com.example.axon.usecases.repository.data_source.database.entity.UserEnti
 import com.example.axon.usecases.repository.remote_data_source.UserRemoteDataSource
 import com.example.axon.utils.ConverterFactory
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 
 interface UserRepository {
@@ -16,6 +18,8 @@ interface UserRepository {
     fun fetchUsersNext(lastItemId: Int): Completable
 
     fun deleteCachedUsers(): Completable
+
+    fun getUserById(id: Int): LiveData<UserEntity>
 
     fun getFactory(
         modelConverter: ConverterFactory
@@ -58,6 +62,8 @@ class UserRepositoryImpl(
     override fun deleteCachedUsers(): Completable=
         Completable.fromAction { userDataSource.deleteCachedRepositories() }
 
+    override fun getUserById(id: Int): LiveData<UserEntity> =
+        userDataSource.getUserById(id)
 
     override fun getFactory(
         modelConverter: ConverterFactory

@@ -6,5 +6,5 @@ data class DateOfBirth(
     @SerializedName("date")
     var date: String,
     @SerializedName("age")
-    var age: Int
+    var age: String
 )

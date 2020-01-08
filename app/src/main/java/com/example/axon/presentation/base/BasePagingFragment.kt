@@ -17,7 +17,7 @@ abstract class BasePagingFragment<V : ViewDataBinding>: BaseFragment<V>(),
 
     protected var pagingAdapter: PagingAdapter = PagingAdapter(DiffCallbackBaseCardModel())
 
-    abstract fun injectDependency(component: ViewModelComponent)
+    abstract override fun injectDependency(component: ViewModelComponent)
 
     abstract fun initListView()
 

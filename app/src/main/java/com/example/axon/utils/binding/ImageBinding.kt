@@ -9,11 +9,13 @@ class ImageBinding {
     companion object {
         @JvmStatic
         @BindingAdapter("image")
-        fun loadImage(imageView: ImageView, url: String) {
-            Glide.with(imageView.context)
-                .load(url)
-                .apply(RequestOptions().circleCrop())
-                .into(imageView)
+        fun loadImage(imageView: ImageView, url: String?) {
+            url?.let {
+                Glide.with(imageView.context)
+                    .load(url)
+                    .apply(RequestOptions().circleCrop())
+                    .into(imageView)
+            }
         }
     }
 }

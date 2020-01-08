@@ -1,5 +1,6 @@
 package com.example.axon.usecases.repository.data_source.database.dao
 
+import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.*
 import com.example.axon.usecases.repository.data_source.database.entity.UserEntity
@@ -8,7 +9,7 @@ import com.example.axon.usecases.repository.data_source.database.entity.UserEnti
 interface UserDao {
 
     @Query("SELECT * FROM users WHERE uid = :id")
-    fun queryById(id: Int): UserEntity
+    fun queryById(id: Int): LiveData<UserEntity>
 
     @Insert(onConflict=OnConflictStrategy.REPLACE)
     fun insert(listEntities: List<UserEntity>)

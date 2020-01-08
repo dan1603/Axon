@@ -68,36 +68,3 @@ private fun FragmentManager.replaceFragment(
     }
     fragmentTransaction.replace(containerViewId, fragment, fragmentTag).commit()
 }
-
-fun Activity.openWebViewPage(url: String) {
-    applicationContext?.packageManager?.let {
-        val uri = Uri.parse(url)
-        if (canHandleCustomTabUrl(uri)) {
-            CustomTabsIntent.Builder()
-                .setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                .build()
-                .launchUrl(this, uri)
-        } else {
-            val intent = Intent(Intent.ACTION_VIEW, uri)
-            if (intent.resolveActivity(it) != null) {
-                startActivity(intent)
-            } else {
-                this.showSnack(R.string.error_no_browser_found)
-            }
-        }
-    }
-}
-
-fun Activity.canHandleCustomTabUrl(uri: Uri): Boolean {
-    val intent = Intent(Intent.ACTION_VIEW, uri)
-    val resolvedActivityList = packageManager.queryIntentActivities(intent, 0)
-    for (info: ResolveInfo in resolvedActivityList) {
-        val serviceIntent = Intent()
-        serviceIntent.action = ACTION_CUSTOM_TABS_CONNECTION
-        serviceIntent.setPackage(info.activityInfo.packageName)
-        if (packageManager.resolveService(serviceIntent, 0) != null) {
-            return true
-        }
-    }
-    return false
-}

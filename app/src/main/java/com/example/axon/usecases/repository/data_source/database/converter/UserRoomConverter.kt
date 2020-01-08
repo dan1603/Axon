@@ -34,7 +34,7 @@ class UserRoomConverter {
 
     @TypeConverter
     fun toStringFromDob(json: String?): DateOfBirth? =
-        if (json == null) DateOfBirth("", 0)
+        if (json == null) DateOfBirth("", "")
         else Gson().fromJson(json, object : TypeToken<DateOfBirth>() {}.type)
 
     @TypeConverter

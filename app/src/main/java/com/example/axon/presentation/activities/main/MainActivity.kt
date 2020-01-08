@@ -7,13 +7,11 @@ import com.example.axon.di.component.ViewModelComponent
 import com.example.axon.presentation.base.BaseActivity
 import com.example.axon.presentation.fragments.user_detail.UserDetailFragment
 import com.example.axon.presentation.fragments.users_list.UsersListFragment
-import com.example.axon.utils.extention.openWebViewPage
 import com.example.axon.utils.extention.replaceFragment
 
 const val EXTRAS_USER_ID = "EXTRAS_USER_ID"
 
-class MainActivity : BaseActivity<MainDataBinding>(),
-    MainListener {
+class MainActivity : BaseActivity<MainDataBinding>(), MainListener {
 
     override fun injectDependency(component: ViewModelComponent) {
         component.inject(this)
@@ -34,11 +32,7 @@ class MainActivity : BaseActivity<MainDataBinding>(),
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onRepositoryClicked(url: String) {
-        openWebViewPage(url)
-    }
-
-    override fun openUserDetail(userId : String) {
+    override fun openUserDetail(userId : Int) {
         this.replaceFragment(R.id.mainContent, UserDetailFragment.newInstance(userId), true, false)
     }
 

@@ -10,5 +10,5 @@ import com.example.axon.usecases.repository.data_source.database.entity.UserEnti
 @Database(entities = [UserEntity::class], version = 1)
 @TypeConverters(UserRoomConverter::class)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun repositoryDao(): UserDao
+    abstract fun usersDao(): UserDao
 }

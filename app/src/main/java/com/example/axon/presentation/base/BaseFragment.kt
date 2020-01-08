@@ -12,6 +12,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.example.axon.App
+import com.example.axon.di.component.ViewModelComponent
 import com.example.axon.presentation.activities.main.MainListener
 import com.example.axon.utils.extention.hideKeyboard
 import com.example.axon.utils.extention.showSnack
@@ -22,6 +24,8 @@ abstract class BaseFragment<V : ViewDataBinding> : Fragment() {
     protected lateinit var viewBinder: V
     protected var listener : MainListener? = null
     private val appBar: ActionBar? = activity?.actionBar
+
+    abstract fun injectDependency(component: ViewModelComponent)
 
     abstract fun getLayoutId(): Int
 
@@ -34,6 +38,11 @@ abstract class BaseFragment<V : ViewDataBinding> : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        createDaggerDependencies()
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewBinder = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
         setupViewLogic(this.viewBinder)
@@ -42,7 +51,7 @@ abstract class BaseFragment<V : ViewDataBinding> : Fragment() {
 
     open fun reset() {}
 
-    protected fun displayHomeAsUp() = appBar?.setDisplayHomeAsUpEnabled(false)
+    protected fun displayHomeAsUp() = appBar?.setDisplayHomeAsUpEnabled(true)
 
     protected fun initializeNavigationBar(title: String, showBackButton: Boolean, @DrawableRes resId: Int) {
         appBar?.apply {
@@ -70,5 +79,9 @@ abstract class BaseFragment<V : ViewDataBinding> : Fragment() {
     override fun onDetach() {
         super.onDetach()
         listener = null
+    }
+
+    private fun createDaggerDependencies() {
+        activity?.apply { injectDependency((application as App).getViewModelComponent()) }
     }
 }

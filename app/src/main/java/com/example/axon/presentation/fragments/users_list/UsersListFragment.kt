@@ -10,6 +10,7 @@ import com.example.axon.data.card_models.UserDisplayModel
 import com.example.axon.databinding.UsersListDataBinding
 import com.example.axon.di.component.ViewModelComponent
 import com.example.axon.domain.UserViewModel
+import com.example.axon.presentation.activities.main.MainActivity
 import com.example.axon.presentation.base.BasePagingFragment
 import com.example.axon.utils.FIRST_LIST_POSITION
 import com.example.axon.utils.RepositoriesLayoutManager
@@ -22,7 +23,6 @@ class UsersListFragment : BasePagingFragment<UsersListDataBinding>() {
 
     var viewModel: UserViewModel?=null
         @Inject set
-
 
     override fun injectDependency(component: ViewModelComponent) {
         component.inject(this)
@@ -65,6 +65,7 @@ class UsersListFragment : BasePagingFragment<UsersListDataBinding>() {
 
     override fun initObserver() {
         viewModel?.initLiveData(this)
+        viewModel?.fetchData()
         viewModel?.getPagedList()?.observe(this, Observer(this@UsersListFragment::onItemsLoaded))
     }
 
@@ -73,11 +74,9 @@ class UsersListFragment : BasePagingFragment<UsersListDataBinding>() {
     }
 
     override fun setupViewLogic(binding: UsersListDataBinding) {
-        //todo adapt for API
-        viewModel?.fetchData()
+        setupAppBar()
         binding.swipeRefresh.setOnRefreshListener {
             viewModel?.setRefreshing(true)
-            //todo adapt for API
             viewModel?.fetchData()
         }
     }
@@ -103,6 +102,11 @@ class UsersListFragment : BasePagingFragment<UsersListDataBinding>() {
     override fun onDetach() {
         viewModel?.clearCachedItems()
         super.onDetach()
+    }
+
+    private fun setupAppBar() = (activity as MainActivity).supportActionBar?.apply {
+        setDisplayHomeAsUpEnabled(false)
+        title = getString(R.string.title_home_screen)
     }
 
     companion object {

@@ -1,5 +1,6 @@
 package com.example.axon.usecases.repository.data_source.database.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
@@ -10,6 +11,7 @@ import com.example.axon.utils.*
 data class UserEntity(
 
     @PrimaryKey(autoGenerate=true)
+    @ColumnInfo(name = "uid")
     var uid: Int,
 
     @SerializedName("name")
@@ -57,7 +59,7 @@ data class UserEntity(
         0,
         Name("", "", ""),
         Location("", "", ""),
-        DateOfBirth("", 0),
+        DateOfBirth("", ""),
         "",
         "",
         "",
